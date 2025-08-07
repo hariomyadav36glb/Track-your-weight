@@ -13,6 +13,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/' , (req,res,next)=>{
+    res.send({
+        activitiStatus : true,
+        error : false
+    })
+})
+
 app.use('/api/auth' , authRoutes)
 app.use('/api/weight' , weightRoutes)
 
