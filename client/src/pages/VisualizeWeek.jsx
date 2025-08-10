@@ -8,20 +8,33 @@ const VisualizeWeek = () => {
     const today = new Date();
     const endDate = today.toISOString().split('T')[0];
     const startDateObj = new Date();
-    startDateObj.setDate(today.getDate() - 7);
+    startDateObj.setDate(today.getDate() - 7); // Past 7 days
     const startDate = startDateObj.toISOString().split('T')[0];
 
     const fetchData = async () => {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/weight/visualise?startDate=${startDate}&endDate=${endDate}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const result = await res.json();
-      const formatted = result.map(item => ({
-        date: item.date.split('T')[0],
-        weight: item.weight,
-      }));
-      setData(formatted);
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/weight/visualise?startDate=${startDate}&endDate=${endDate}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const result = await res.json();
+
+        if (Array.isArray(result)) {
+          const formatted = result.map(item => ({
+            date: item.date.split('T')[0],
+            weight: item.weight,
+          }));
+          setData(formatted);
+        } else {
+          console.error('Unexpected API response:', result);
+        }
+      } catch (err) {
+        console.error('Error fetching weight data:', err);
+      }
     };
 
     fetchData();

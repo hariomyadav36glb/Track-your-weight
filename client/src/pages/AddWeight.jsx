@@ -17,7 +17,7 @@ const AddWeight = () => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        'http://localhost:5000/api/weight/add',
+        `${import.meta.env.VITE_BACKEND_URL}/api/weight/add`, // ✅ Vite env variable
         { weight, date },
         {
           headers: {

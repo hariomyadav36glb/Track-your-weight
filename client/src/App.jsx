@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import AddWeight from './pages/Addweight';
+import AddWeight from './pages/AddWeight';
 import VisualizeWeek from './pages/VisualizeWeek';
 import VisualizeMonth from './pages/VisualizeMonth';
 import CustomVisualize from './pages/CustomVisualize';
